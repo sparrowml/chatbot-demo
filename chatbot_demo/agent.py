@@ -6,7 +6,6 @@ from langchain_community.tools import StackExchangeTool
 from langchain_community.tools.tavily_search import TavilySearchResults
 from langchain_community.utilities import StackExchangeAPIWrapper
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
-from langchain_core.runnables import ConfigurableField
 from langchain_openai import ChatOpenAI
 
 SYSTEM_PROMPT = """
@@ -33,13 +32,7 @@ def configure_agent() -> AgentExecutor:
     tools = [search, stack_exchange]
 
     # Model
-    model = ChatOpenAI(model="gpt-4o").configurable_fields(
-        temperature=ConfigurableField(
-            id="llm_temperature",
-            name="LLM Temperature",
-            description="The temperature of the LLM",
-        )
-    )
+    model = ChatOpenAI(model="gpt-4o")
 
     # Prompt
     prompt = ChatPromptTemplate.from_messages(
