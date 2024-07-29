@@ -2,9 +2,7 @@ from typing import Any
 
 from langchain.agents import AgentExecutor, create_tool_calling_agent
 from langchain.pydantic_v1 import BaseModel
-from langchain_community.tools import StackExchangeTool
 from langchain_community.tools.tavily_search import TavilySearchResults
-from langchain_community.utilities import StackExchangeAPIWrapper
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_openai import ChatOpenAI
 
@@ -28,8 +26,7 @@ class Output(BaseModel):
 def configure_agent() -> AgentExecutor:
     # Tools
     search = TavilySearchResults()
-    stack_exchange = StackExchangeTool(api_wrapper=StackExchangeAPIWrapper())
-    tools = [search, stack_exchange]
+    tools = [search]
 
     # Model
     model = ChatOpenAI(model="gpt-4o")
