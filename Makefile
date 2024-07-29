@@ -26,3 +26,7 @@ docker-remove:
 .PHONY: serve
 serve:
 	gunicorn chatbot_demo.app:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:8080
+
+.PHONY: docker-serve
+docker-serve: docker-build
+	docker run -p 8080:8080 --env-file=.env $(IMAGE):$(VERSION) make serve
